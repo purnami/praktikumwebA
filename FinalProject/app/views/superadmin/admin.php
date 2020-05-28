@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Super Admin</title>
+
+  <!-- Custom fonts for this template-->
+  <link href="<?=BASEURL;?>admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+  <!-- Custom styles for this template-->
+  <link href="<?=BASEURL;?>admin/css/sb-admin-2.min.css" rel="stylesheet">
+  <link href="<?=BASEURL;?>admin/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+</head>
+<body id="page-top">
+
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+
+    <!-- Sidebar -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+      <!-- Sidebar - Brand -->
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <div class="sidebar-brand-icon rotate-n-15">
+          <i class="fas fa-laugh-wink"></i>
+        </div>
+        <div class="sidebar-brand-text mx-3">Super Admin</sup></div>
+      </a>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider my-0">
+
+      <!-- Nav Item - Dashboard -->
+      <li class="nav-item active">
+        <a class="nav-link" href="<?= BASEURL; ?>superadmin/index">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Dashboard</span></a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="<?= BASEURL; ?>superadmin/admin">
+          <i class="fas fa-fw fa-id-card"></i>
+          <span>Admin</span></a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="<?= BASEURL; ?>superadmin/user">
+          <i class="fas fa-fw fa-user"></i>
+          <span>User</span></a>
+      </li>
+      <li class="nav-item active ">
+        <a class="nav-link" href="<?= BASEURL; ?>superadmin/buku">
+          <i class="fas fa-fw fa-book-open"></i>
+          <span>Buku</span></a>
+      </li>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider my-0">
+      <li class="nav-item active">
+      <a class="nav-link" href="<?= BASEURL; ?>user/logout">
+          <i class="fas fa-fw fa-sign-out-alt"></i>
+          <span>Logout</span></a>
+      </li>
+
+     
+      <!-- Divider -->
+      <hr class="sidebar-divider d-none d-md-block">
+
+    </ul>
+    <!-- End of Sidebar -->
+    <!-- Content Wrapper -->
+<div id="content-wrapper" class="d-flex flex-column">
+
+<!-- Main Content -->
+<div id="content">
+
+  <!-- Topbar -->
+  <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+    <!-- Sidebar Toggle (Topbar) -->
+    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+      <i class="fa fa-bars"></i>
+    </button>
+
+    <!-- Topbar Navbar -->
+    <ul class="navbar-nav ml-auto">
+      <span class="mr-2 d-none d-lg-inline text-gray-600 small"><h5>Super Admin</h5></span>
+    </ul>
+
+  </nav>
+  <!-- End of Topbar -->
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+          <!-- Page Heading -->
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Manajemen Admin</h1>
+          </div>
+
+         <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambahAdminModal">Tambah Admin Baru</button>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Nama</th>
+            <th>Email</th>
+            <th>Status Aktif</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <?php 
+        $i=1;
+        foreach ($data['admin'] as $admin) : ?>
+        <tbody>
+          <tr>
+            <td><?= $i; ?></td>
+            <td><?= $admin['nama'];?></td>
+            <td><?= $admin['email'];?></td>
+            <?php 
+              if($admin['is_active']==1){ 
+                $btn="Tidak diaktifkan"; ?>
+                <td id="aktif<?= $admin['id']; ?>">Aktif</td>
+             <?php   }else{ 
+               $btn="Aktifkan";?>
+                <td id="aktif<?= $admin['id']; ?>">Tidak Aktif</td>
+              <?php  }
+            ?>
+            
+            <td>
+            <button type="button" id="btaktif<?= $admin['id']; ?>" class="btn btn-primary btnaktif" data-id="<?= $admin['id'];?>"><?= $btn; ?></button>
+            </td>
+          </tr>
+
+          <?php 
+        $i++;
+        endforeach; ?>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+</div>
+<!-- /.container-fluid -->
+
+    
+  <!-- Modal tambahAdmin-->
+<div class="modal fade" id="tambahAdminModal" tabindex="-1" role="dialog" aria-labelledby="tambahAdminModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content ">
+      <div class="modal-header">
+        <h5 class="modal-title" id="tambahAdminModalLabel">Tambah Admin Baru</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="<?= BASEURL; ?>superadmin/tambahAdmin" method="post">
+      <div class="modal-body">
+      <div class="form-group">
+          <input type="text" class="form-control form-control-user" id="nama" name="nama" aria-describedby="namaHelp" placeholder="Nama Admin">
+        </div>
+        <div class="form-group">
+          <input type="email" class="form-control form-control-user" id="email" name="email" aria-describedby="emailHelp" placeholder="Email">
+        </div>
+        <div class="form-group">
+          <input type="password" class="form-control form-control-user" id="pass" name="pass" placeholder="Password">
+        </div>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="submit" class="btn btn-primary">Tambah</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+      </div>
+      <!-- End of Main Content -->
+<!-- Footer -->
+<footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            <span>Copyright &copy; Purnami 2020</span>
+          </div>
+        </div>
+      </footer>
+      <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+  </div>
+  <!-- End of Page Wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="<?=BASEURL;?>admin/vendor/jquery/jquery.min.js"></script>
+  <script src="<?=BASEURL;?>admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="<?=BASEURL;?>admin/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="<?=BASEURL;?>admin/js/sb-admin-2.min.js"></script>
+
+  <!-- Page level plugins -->
+  <script src="<?=BASEURL;?>admin/vendor/datatables/jquery.dataTables.min.js"></script>
+  <script src="<?=BASEURL;?>admin/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+  <!-- Page level custom scripts -->
+  <script src="<?=BASEURL;?>admin/js/demo/datatables-demo.js"></script>
+
+  <script>
+  $(function(){
+    $('.btnaktif').on('click', function(){
+      const id=$(this).data('id');
+      // console.log(id);
+      $.ajax({
+        url: "http://localhost/PraktikumWebA/FinalProject/public/superadmin/editisactive/",
+        data: {id : id},
+        method: "POST",
+        dataType: 'json',
+        success: function(data){
+          if(data.is_active==1){
+            $('#aktif'+id).html('Aktif');
+            $('#btaktif'+id).html('Tidak diaktifkan');
+
+          }else{
+            $('#aktif'+id).html('Tidak Aktif');
+            $('#btaktif'+id).html('Diaktifkan');
+          }
+          console.log(data);
+        }
+		  });
+    });
+  });
+  </script>
+
+
+</body>
+
+</html>
+
+      
