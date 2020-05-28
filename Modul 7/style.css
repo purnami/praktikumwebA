@@ -1,0 +1,20 @@
+.container{
+    background-color: brown;
+    width: 218px;
+    height: 300px;
+}
+table{
+    padding-top: 60px;
+    padding-left: 10px;
+}
+table button{
+    width: 40px;
+    margin: 2px;
+    padding: 2px;
+}
+input{
+    width: 185px;
+    height: 30px;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
